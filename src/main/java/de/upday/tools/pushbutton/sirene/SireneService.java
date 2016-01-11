@@ -6,16 +6,17 @@ import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class SireneService {
 
     private final GpioPinDigitalOutput pin = GpioFactory.getInstance()
-                                                        .provisionDigitalOutputPin(RaspiPin.GPIO_01,
+                                                        .provisionDigitalOutputPin(RaspiPin.GPIO_14,
                                                                                    "SirenePin",
                                                                                    PinState.LOW);
 
-    @Scheduled(fixedDelay = 100L)
+    @Scheduled(fixedDelay = 1000L)
     public void tick() {
         pin.toggle();
     }

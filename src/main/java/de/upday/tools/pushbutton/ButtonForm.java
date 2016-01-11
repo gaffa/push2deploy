@@ -1,13 +1,17 @@
 package de.upday.tools.pushbutton;
 
-import java.awt.*;
-
-import javax.swing.*;
 
 import de.upday.tools.pushbutton.button.ButtonEventListener;
 import de.upday.tools.pushbutton.jenkins.JenkinsClient;
+import de.upday.tools.pushbutton.jenkins.JenkinsJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.swing.*;
+import java.awt.*;
+import java.net.URI;
+import java.util.List;
 
 @Component
 public class ButtonForm extends JFrame implements ButtonEventListener {
@@ -17,29 +21,52 @@ public class ButtonForm extends JFrame implements ButtonEventListener {
 
     private JTextArea titleText;
 
+    private List<JenkinsJob> jobs;
+
+    private int iAmAnUglyInteger = 0;
+
     public ButtonForm() {
 
         super("CI Push Button");
         setVisible(true);
         setSize(1000, 800);
-        titleText = new JTextArea("awaiting button events...");
+        titleText = new JTextArea("loading jenkins deploy jobs...");
         titleText.setFont(new Font("Verdana", Font.BOLD, 50));
         add(titleText);
     }
 
+    @PostConstruct
+    public void foo() {
+        jobs = jenkinsClient.loadJobs().getJobs();
+    }
+
     @Override
     public void lidOpened() {
-        setText("opened");
+
+        iAmAnUglyInteger++;
+        if (iAmAnUglyInteger >= jobs.size()) {
+            iAmAnUglyInteger = 0;
+        }
+        setText(jobs.get(iAmAnUglyInteger).getName());
     }
 
     @Override
     public void lidClosed() {
-        setText("closed");
+        setText("zzzzzz");
     }
 
     @Override
     public void buttonPressed() {
-        jenkinsClient.startJob("/job/test");
+        JenkinsJob fuckingJob = jobs.get(iAmAnUglyInteger);
+        jenkinsClient.startJob(fuckingJob.getUrl());
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(new URI(fuckingJob.getUrl()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     void setText(String text) {

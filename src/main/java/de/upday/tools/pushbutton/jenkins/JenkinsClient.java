@@ -1,15 +1,15 @@
 package de.upday.tools.pushbutton.jenkins;
 
-import java.net.URI;
-import java.util.Base64;
-import java.util.Map;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.util.Base64;
+import java.util.Map;
 
 public class JenkinsClient {
 
@@ -34,6 +34,10 @@ public class JenkinsClient {
         if (xsrf) {
             addCrumbHeaderInterceptor(jenkinsBaseUrl);
         }
+    }
+
+    public JenkinsJobListResponse loadJobs() {
+        return query("view/Baustelle yana (eu-west-1) staging DEPLOY/", JenkinsJobListResponse.class);
     }
 
     /**
@@ -63,7 +67,7 @@ public class JenkinsClient {
         }
 
         String endpoint = formPostParams.size() > 0 ? "/buildWithParameters" : "/build";
-        return restTemplate.postForLocation(jenkinsBaseUrl + jobPath + endpoint, formPostParams, String.class);
+        return restTemplate.postForLocation(jobPath + endpoint, formPostParams, String.class);
     }
 
     private void addAuthHeaderInterceptor(String username, String password) {

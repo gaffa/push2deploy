@@ -1,15 +1,19 @@
 package de.upday.tools.pushbutton;
 
-import org.springframework.stereotype.Component;
-
 import java.awt.*;
 
 import javax.swing.*;
 
 import de.upday.tools.pushbutton.button.ButtonEventListener;
+import de.upday.tools.pushbutton.jenkins.JenkinsClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ButtonForm extends JFrame implements ButtonEventListener {
+
+    @Autowired
+    private JenkinsClient jenkinsClient;
 
     private JTextArea titleText;
 
@@ -35,7 +39,7 @@ public class ButtonForm extends JFrame implements ButtonEventListener {
 
     @Override
     public void buttonPressed() {
-        setText("pressed");
+        jenkinsClient.startJob("/job/test");
     }
 
     void setText(String text) {

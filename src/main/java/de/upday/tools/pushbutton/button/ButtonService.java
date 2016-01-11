@@ -38,6 +38,9 @@ public class ButtonService {
 	public void setupHid() {
 		final HidServices hidServices = HidManager.getHidServices();
 		buttonDevice = hidServices.getHidDevice(vendorId, productId, null);
+		if (buttonDevice == null) {
+			throw new IllegalStateException("USB Button not found");
+		}
 	}
 
 	@Scheduled(fixedDelay = 100L)

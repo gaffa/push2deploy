@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class SireneService {
 
     private final GpioPinDigitalOutput pin = GpioFactory.getInstance()
-                                                        .provisionDigitalOutputPin(RaspiPin.GPIO_19,
+                                                        .provisionDigitalOutputPin(RaspiPin.GPIO_01,
                                                                                    "SirenePin",
                                                                                    PinState.LOW);
 

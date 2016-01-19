@@ -1,4 +1,4 @@
-package de.upday.tools.pushbutton.jenkins;
+package de.upday.tools.pushbutton.application.jenkins;
 
 /**
  * Created by igaff on 11.01.2016.

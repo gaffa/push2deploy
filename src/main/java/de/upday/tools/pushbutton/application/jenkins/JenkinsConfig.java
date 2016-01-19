@@ -1,6 +1,5 @@
-package de.upday.tools.pushbutton.config;
+package de.upday.tools.pushbutton.application.jenkins;
 
-import de.upday.tools.pushbutton.jenkins.JenkinsClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

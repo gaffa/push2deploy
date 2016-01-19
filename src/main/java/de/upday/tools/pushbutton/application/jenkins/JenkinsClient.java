@@ -1,4 +1,4 @@
-package de.upday.tools.pushbutton.jenkins;
+package de.upday.tools.pushbutton.application.jenkins;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

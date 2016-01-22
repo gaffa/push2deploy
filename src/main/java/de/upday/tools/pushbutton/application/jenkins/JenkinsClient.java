@@ -37,7 +37,7 @@ public class JenkinsClient {
     }
 
     public JenkinsJobListResponse loadJobs() {
-        return query("view/haralds_view_of_the_world/", JenkinsJobListResponse.class);
+        return query("view/Haralds_view_of_the_world/", JenkinsJobListResponse.class);
     }
 
     /**

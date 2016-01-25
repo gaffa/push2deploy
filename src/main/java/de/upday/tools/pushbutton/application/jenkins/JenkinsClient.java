@@ -37,7 +37,7 @@ public class JenkinsClient {
     }
 
     public JenkinsJobListResponse loadJobs() {
-        return query("view/Haralds_view_of_the_world/", JenkinsJobListResponse.class);
+        return query("view/Haralds_view_of_the_poo/", JenkinsJobListResponse.class);
     }
 
     /**
@@ -67,7 +67,7 @@ public class JenkinsClient {
         }
 
         String endpoint = formPostParams.size() > 0 ? "/buildWithParameters" : "/build";
-        return restTemplate.postForLocation(jobPath + endpoint, formPostParams, String.class);
+        return restTemplate.postForLocation(jenkinsBaseUrl + "/job/" + jobPath + endpoint, formPostParams, String.class);
     }
 
     private void addAuthHeaderInterceptor(String username, String password) {
